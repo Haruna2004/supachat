@@ -20,9 +20,18 @@ Docs
 
 # https://docs.gupshup.io/docs/what-is-an-inbound-message
 
+;
+
 ```js
     azureOpenAIApiKey: process.env.AZURE_OPENAI_API_KEY,
     azureOpenAIApiInstanceName: process.env.AZURE_OPENAI_API_INSTANCE_NAME,
     azureOpenAIApiDeploymentName: process.env.AZURE_OPENAI_API_DEPLOYMENT_NAME,
     azureOpenAIApiVersion: process.env.AZURE_OPENAI_API_VERSION,
+
+
+import gupshup from '@api/gupshup';
+
+gupshup.postWaApiV1Msg({message: '{"text":"Welcome to Gupshup","type":"text","previewUrl":false}'})
+  .then(({ data }) => console.log(data))
+  .catch(err => console.error(err))
 ```

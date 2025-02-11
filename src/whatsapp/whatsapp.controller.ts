@@ -5,12 +5,6 @@ import { WhatsAppService } from './whatsapp.service';
 export class WhatsAppController {
   constructor(private readonly whatsAppService: WhatsAppService) {}
 
-  @Post('send-message')
-  async sendMessage(@Body('to') to: string, @Body('message') message: string) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-    return this.whatsAppService.sendTextMessage(to, message);
-  }
-
   @Get('webhook')
   verifyWebhook(
     @Query('hub.mode') mode: string,

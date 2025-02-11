@@ -1,56 +1,43 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import axios, { AxiosInstance } from 'axios';
-// import gupshup from '@api/gupshup';
-
-// gupshup.postWaApiV1Msg({message: '{"text":"Welcome to Gupshup","type":"text","previewUrl":false}'})
-//   .then(({ data }) => console.log(data))
-//   .catch(err => console.error(err));
+import { GupshupMessagePayload } from './whatsapp.types';
+import { ChatService } from 'src/chat/chat.service';
+import { HelperService } from 'src/helper/helper.service';
 
 @Injectable()
 export class WhatsAppService {
-  private readonly client: AxiosInstance;
-  private readonly phoneNumberId: string;
+  constructor(
+    private readonly chatService: ChatService,
+    private readonly helperService: HelperService,
+  ) {}
+  // whatsapp webhook handler
+  handleWebhook(payloadObj: GupshupMessagePayload) {
+    const hookType = payloadObj.type;
 
-  // setup the axios client
-  constructor(private configService: ConfigService) {
-    this.phoneNumberId =
-      this.configService.get('WHATSAPP_PHONE_NUMBER_ID') ??
-      'could_not_get_phoneId';
-
-    this.client = axios.create({
-      baseURL: `https://graph.facebook.com/v18.0/${this.phoneNumberId}`,
-      headers: {
-        Authorization: `Bearer ${this.configService.get('WHATSAPP_API_TOKEN')}`,
-        'Content-Type': 'application/json',
-      },
-    });
-  }
-
-  // send a text message to number
-
-  async sendTextMessage(to: string, message: string) {
-    try {
-      const response = await this.client.post('/messages', {
-        messaging_product: 'whatsapp',
-        to,
-        type: 'text',
-        text: { body: message },
+    // if it's a user object, process it
+    if (hookType === 'message')
+      this.processMessage(payloadObj).catch((error) => {
+        console.log('Error Processing message', payloadObj);
+        console.error('Error: ', error);
       });
-      return response.data;
-    } catch (error) {
-      throw new Error(
-        `WhatsApp API Error: ${error.response?.data?.error?.message || error.message}`,
-      );
-    }
-  }
-
-  handleWebhook(payload: any) {
-    // Process incoming messages here
-    console.log('Webhook Payload:', JSON.stringify(payload));
 
     return { status: 'ok' };
+  }
+
+  // process message from webhook
+  async processMessage(payloadObj: GupshupMessagePayload) {
+    const messageType = payloadObj.payload.type;
+    const sourceNum = payloadObj.payload.source;
+
+    if (messageType !== 'text') {
+      const messageResText = 'Sorry. I can only accept text message';
+      await this.helperService.sendWhatsappTextMessage(
+        sourceNum,
+        messageResText,
+      );
+      return;
+    }
+
+    const userMessage = payloadObj.payload.payload.text;
+    await this.chatService.handleInput(userMessage, sourceNum);
   }
 }
