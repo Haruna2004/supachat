@@ -20,6 +20,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@api/gupshup": "file:.api/apis/gupshup",
     "@langchain/core": "^0.3.38",
     "@langchain/openai": "^0.4.2",
     "@nestjs/common": "^11.0.1",

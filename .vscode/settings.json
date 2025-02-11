@@ -1,0 +1,14 @@
+{
+  "files.exclude": {
+    "**/node_modules": true,
+    "**/.prettierrc": true,
+    "**/nest-cli.json": true,
+    "**/tsconfig.json": true,
+    // "**/.gitignore": true,
+    "**/*.spec.ts": true,
+    "**/test": true,
+    "**/package-lock.json": true,
+    // "**/package.json": true,
+    "**/tsconfig.build.json": true
+  }
+}

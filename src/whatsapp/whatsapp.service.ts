@@ -3,6 +3,11 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import axios, { AxiosInstance } from 'axios';
+// import gupshup from '@api/gupshup';
+
+// gupshup.postWaApiV1Msg({message: '{"text":"Welcome to Gupshup","type":"text","previewUrl":false}'})
+//   .then(({ data }) => console.log(data))
+//   .catch(err => console.error(err));
 
 @Injectable()
 export class WhatsAppService {
