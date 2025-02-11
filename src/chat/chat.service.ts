@@ -9,7 +9,7 @@ export class ChatService {
     console.log(`${sourceNum} Message: `, userInput);
     await this.helperService.sendWhatsappTextMessage(
       sourceNum,
-      'Hello Faruk, This is chatpay',
+      'Hello Faruk, This is Chatpay',
     );
   }
 }
