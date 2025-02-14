@@ -1,14 +1,28 @@
 {
   "files.exclude": {
-    "**/node_modules": true,
-    "**/.prettierrc": true,
-    "**/nest-cli.json": true,
-    "**/tsconfig.json": true,
-    "**/.gitignore": true,
-    "**/*.spec.ts": true,
-    "**/test": true,
-    "**/package-lock.json": true,
-    // "**/package.json": true,
-    "**/tsconfig.build.json": true
+    // "**/node_modules": true,
+    // "**/.prettierrc": true,
+    // "**/nest-cli.json": true,
+    // "**/tsconfig.json": true,
+    // "**/.gitignore": true,
+    // "**/*.spec.ts": true,
+    // "**/test": true,
+    // "**/package-lock.json": true,
+    // "**/tsconfig.build.json": true,
+    // ".api": true,
+    // "dist": true,
+    // "bun.lock": true,
+    // "eslint.config.mjs": true,
+    // "package.json": true,
+    // Chat Focus
+    // "**/whatsapp": true,
+    // "**/app.controller.ts": true,
+    // "**/app.service.ts": true,
+    // "**/app.module.ts": true,
+    // "**/helper": true,
+    // "**/main.ts": true,
+    // // ".env": true,
+    // "notes.md": true,
+    // "test-scripts": true
   }
 }

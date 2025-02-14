@@ -1,9 +1,9 @@
-import { AIService } from "../libs/ai";
-import { BrassService } from "../libs/brass";
-import { HelperSevice } from "../libs/helpers";
-import { StateManager } from "../libs/state";
-import { BULK_PAY_MESSAGE } from "../utils";
-import { type ConfirmedDetails } from "../utils/types";
+import { AIService } from '../libs/ai';
+import { BrassService } from '../libs/brass';
+import { HelperSevice } from '../libs/helpers';
+import { StateManager } from '../libs/state';
+import { BULK_PAY_MESSAGE } from '../utils';
+import { type ConfirmedDetails } from '../utils/types';
 
 const stateManager = StateManager.getInstance();
 const helpers = new HelperSevice();
@@ -51,23 +51,35 @@ export class BulkPayment {
           // check if account number is valid
           if (!(accountNumber?.toString().length === 10)) return null;
 
-          const resolvedName = await brassService.confirmAccount(
+          const result = await brassService.confirmAccount(
             bankCode,
-            accountNumber
+            accountNumber,
           );
 
           // check account details is valid
-          if (!resolvedName) return null;
+          // if (!resolvedName) return null;
+          // check account details is valid
+          if (!result.success || !result.data) return null;
+
+          const {
+            data: {
+              account_name,
+              bank: {
+                data: { id: bank_id, name: bank_name },
+              },
+            },
+          } = result;
 
           return {
             ...rest, // Preserve existing values
             isConfirmed: true,
-            bankCode, // Updated bankCode
-            bankName,
+            bankCode,
+            bankName: bank_name,
+            bankID: bank_id,
             accountNumber,
-            recipient: resolvedName, // Updated recipient name
+            recipient: account_name,
           };
-        })
+        }),
       )
     ).filter((item): item is ConfirmedDetails => item !== null);
 
@@ -87,7 +99,7 @@ export class BulkPayment {
     }
 
     console.log(
-      `Please review ${numOfConfirmed} of ${numOfUnconfirmed} accounts have been confirmed.`
+      `Please review ${numOfConfirmed} of ${numOfUnconfirmed} accounts have been confirmed.`,
     );
     allConfirmed.forEach((account) => {
       console.log(
@@ -97,15 +109,15 @@ export class BulkPayment {
         Account:   ${account.accountNumber}
         Bank:      ${account.bankName}
         
-        `
+        `,
       );
     });
     helpers.writeToTerminal(
-      "Enter 'Yes' to approve or 'No' to cancel the payment."
+      "Enter 'Yes' to approve or 'No' to cancel the payment.",
     );
 
     const userApproval = await helpers.getUserInput();
-    if (userApproval.toLowerCase() === "yes") {
+    if (userApproval.toLowerCase() === 'yes') {
       stateManager.bulkDetails.isAllApproved = true;
     } else {
       stateManager.bulkDetails.isAllApproved = false;
@@ -121,7 +133,7 @@ export class BulkPayment {
   processBulkPay() {
     if (stateManager.bulkDetails.isAllApproved) {
       console.log(
-        "All these payment accounts are sent to Brass for processing"
+        'All these payment accounts are sent to Brass for processing',
       );
       console.log(stateManager.bulkDetails.allConfirmed);
     }

@@ -1,6 +1,9 @@
-//! WARN: THESE Values should be in .env
+// WARN: THESE Values should be in .env
 export const BRASS_SANDBOX_KEY = 'lk_yG1Tn7RDbccJk0HxjbnwGbcl7UuN7oMp6wbkouH7c';
 export const BASS_PROD_KEY = 'lk_RDGxURaH91Qs5MLVheylToR8ULGEWy1y0L72LO1RE5U';
+
+export const BRASS_CONCIERGE_PAT =
+  '11190|pat-nRdEvhRixSXttiCa13vH5pEhBbBLLpqe5SPlITw6';
 
 export const AI_CONFIG = {
   AZURE_OPENAI_API_DEPLOYMENT_NAME: 'gpt-4o',

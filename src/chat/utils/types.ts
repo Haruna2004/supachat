@@ -27,8 +27,8 @@ export interface ConfirmedDetails extends PaymentDetails {
   isConfirmed: boolean;
   bankName: string;
   accountNumber: number;
-  bankCode: string;
   bankID: string;
+  bankCode: string;
   recipient: string;
 }
 

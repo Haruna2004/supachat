@@ -4,6 +4,9 @@
 /build
 /.api
 
+# CUSTOM
+/test-scripts
+
 # Logs
 logs
 *.log

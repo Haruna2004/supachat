@@ -1,29 +1,30 @@
+import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import axios, { AxiosInstance } from 'axios';
 import { BANK_CODES } from '../utils/bankCodes';
-import { BRASS_CONCIERGE_PAT } from '../utils/secrets';
 import {
   ConfirmAccountError,
   ConfirmAccountResponse,
   PaymentDetails,
 } from '../utils/types';
-
 const baseURL = 'https://api.getbrass.co';
-
 const PATH = {
   resolveName: '/banking/banks/account-name',
   createPayment: '/banking/payments',
 };
 
+@Injectable()
 export class BrassService {
   private readonly api: AxiosInstance;
 
-  constructor() {
+  constructor(private readonly configService: ConfigService) {
+    const apiKey = this.configService.get<string>('BRASS_CONCIERGE_PAT');
     this.api = axios.create({
       baseURL,
-      timeout: 5000,
+      timeout: 10000,
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${BRASS_CONCIERGE_PAT}`,
+        Authorization: `Bearer ${apiKey}`,
       },
     });
   }
@@ -64,14 +65,6 @@ export class BrassService {
     }
   }
 
-  getBankCode(bankName: string) {
-    const bankCodes = BANK_CODES.filter((bank) =>
-      bank.name.toLowerCase().includes(bankName.toLowerCase()),
-    );
-    if (bankCodes.length === 0) return '';
-    else return bankCodes[0].code;
-  }
-
   async createPayment(payable: PaymentDetails) {
     try {
       if (!payable.amount) {
@@ -89,17 +82,26 @@ export class BrassService {
         },
       };
 
-      console.log('payment data sent to brass api: ', paymentData);
+      console.log('Payment Data to Brass: ', paymentData);
 
       const response = await this.api.post<{ data: object }>(
         `${PATH.createPayment}`,
         paymentData,
       );
-      console.log(JSON.stringify(response.data));
+      console.log('Payment Success: ', JSON.stringify(response.data));
       return { success: true };
     } catch (error) {
-      // console.error(error);
+      console.error('Payment Failed');
       return { success: false };
     }
+  }
+
+  getBankCode(bankName: string) {
+    const bankCodes = BANK_CODES.filter((bank) =>
+      bank.name.toLowerCase().includes(bankName.toLowerCase()),
+    );
+
+    if (bankCodes.length === 0) return '';
+    else return bankCodes[0].code;
   }
 }

@@ -38,10 +38,19 @@ export class HelperService {
     };
 
     try {
-      const response = await axios.post(url, data, config);
-      console.log(response.data);
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-      return response.data;
+      const response = await axios.post<{ status: string; messageId: string }>(
+        url,
+        data,
+        config,
+      );
+
+      const { status } = response.data;
+      if (status === 'submitted') {
+        console.log(`${source} Assistant: ${message}`);
+        return true;
+      }
+
+      return false;
     } catch (error) {
       console.error('Error:', error);
       return null;
