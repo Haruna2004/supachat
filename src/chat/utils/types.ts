@@ -35,6 +35,7 @@ export interface ConfirmedDetails extends PaymentDetails {
 export interface BulkDetails {
   allPayable: PaymentDetails[];
   allConfirmed: ConfirmedDetails[];
+  isKnown?: boolean;
   isAllConfirmed?: boolean;
   isAllApproved?: boolean;
 }

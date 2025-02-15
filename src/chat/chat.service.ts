@@ -30,13 +30,12 @@ export class ChatService {
       case 'Initiate_Payment':
         await this.payService.handlePayment();
         break;
+      case 'Initiate_Bulk_Payment':
+        await this.bulkService.handleBulk();
+        break;
       case 'Initiate_Verify_Payment':
         await this.verifyService.handleVerify();
         await this.replyMessage('Verifying a payment');
-        break;
-      case 'Initiate_Bulk_Payment':
-        await this.bulkService.handleBulk();
-        await this.replyMessage('Processing bulk payment');
         break;
       default:
         await this.intentService.handleUndetected();

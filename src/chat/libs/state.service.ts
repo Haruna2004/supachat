@@ -1,5 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { type PaymentDetails, type IntentType } from '../utils/types';
+import {
+  type PaymentDetails,
+  type IntentType,
+  BulkDetails,
+} from '../utils/types';
 
 @Injectable()
 export class StateService {
@@ -9,6 +13,11 @@ export class StateService {
   currMessage: string = '';
   currNumber: string = '';
   paymentDetails: PaymentDetails = {};
+
+  bulkDetails: BulkDetails = {
+    allPayable: [],
+    allConfirmed: [],
+  };
 
   RESET() {
     this.currentIntent = 'Could_Not_Detect';

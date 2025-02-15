@@ -75,7 +75,7 @@ export class PaymentService {
       Amount:    ${formatAmount(amount ?? 0)}
       Recipient: ${resolvedName}
       Account:   ${accountNumber}
-      Bank:      ${resolvedName}
+      Bank:      ${resolvedBank}
 
       Send 'Yes' to confirm or 'No' to cancel the payment.`,
     );

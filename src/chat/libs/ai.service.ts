@@ -1,5 +1,12 @@
 import { AzureChatOpenAI } from '@langchain/openai';
-import { intent, payDetailsObj, payDetailsPrompt } from '../utils/aihelpers';
+import {
+  bulkPayDetails,
+  intent,
+  payDetailsObj,
+  payDetailsPrompt,
+  bankNamePrompt,
+  resolvedBank,
+} from '../utils/aihelpers';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
@@ -44,5 +51,25 @@ export class AIService {
   async getChatResponse(text: string) {
     const result = await this.model.invoke(text);
     return result.content;
+  }
+
+  async extractBulkPayDetails(text: string) {
+    const structuredLlm = this.model.withStructuredOutput(bulkPayDetails);
+    const runnable = payDetailsPrompt.pipe(structuredLlm);
+
+    const result = await runnable.invoke({
+      userInput: text,
+    });
+
+    return result;
+  }
+
+  async getAIBankName(userBankNameInput: string) {
+    const structuredLlm = this.model.withStructuredOutput(resolvedBank);
+    const runnable = bankNamePrompt.pipe(structuredLlm);
+
+    const result = await runnable.invoke({ userBankNameInput });
+
+    return result.bankName;
   }
 }

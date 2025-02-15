@@ -8,26 +8,24 @@ export const formatAmount = (amount: number) => {
 };
 
 export const BULK_PAY_MESSAGE = `
-==========================================
-        BULK PAYMENT DETAILS REQUIRED
-==========================================
 
-Here are the details required:
+    SENDING BULK PAYMENT
 
-1️⃣  Account Name  
+These are the expected details:
+
+1️⃣  Account Name (optional) 
 2️⃣  Account Number  
 3️⃣  Bank Name  
 4️⃣  Amount  
 
-➡️ Please follow this format:  
+➡️ You can follow this format:  
    Name - Number - Bank - Amount  
-   Example:  
-   Haruna Faruk - 88282829292 - UBA - 200,000  
-   Njoku Samuel - 88282829292 - Access - 200,000
+
+Example:  
+   1. Haruna Faruk  88282829292  UBA 200000  
+   2. Femi Samuel  88282829292  Access  200000
 
 ✅ Tip: Process about 30 at a time for easier error checking.  
-
-========================================== 
 
 `;
 
