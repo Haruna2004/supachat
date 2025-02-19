@@ -24,6 +24,10 @@ export class StateService {
     this.currNumber = '';
     this.currMessage = '';
     this.paymentDetails = {};
+    this.bulkDetails = {
+      allPayable: [],
+      allConfirmed: [],
+    };
   }
 
   static getInstance(): StateService {
