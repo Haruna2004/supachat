@@ -1,37 +1,18 @@
-# https://developers.facebook.com/docs/whatsapp/cloud-api/get-started
+```txt
 
-// Whatsapp API setup
+🏆 (COMPLETED) Unstructured Payment Requests: Users can send payment details in plain text, and Brass Concierge will extract and structure the necessary information.
 
-# https://chat.deepseek.com/a/chat/s/3ec589f1-b64f-47ea-b6f1-4b9931182d7e
+🏆 (COMPLETED) Bulk Payment Processing: Handles multiple payments in a single request.
 
-// Brass SDK
+🏆 (COMPLETED) Error Handling & Validation: Ensures all payment details are correct before processing.
 
-# https://docs.trybrass.com/reference/getting-started-with-your-api
+🟢 (STARTED) Automated Data Collection: The AI agent prompts users for missing details like account numbers and bank names.
 
-Channel integration
-
-# https://app.bird.com/settings/channels?tab=%22channels%22
-
-WORKING
-
-# https://www.gupshup.io/whatsapp/overview?appId=9f7c22ca-c7bc-4ee5-b2a2-667c18d4e809
-
-Docs
-
-# https://docs.gupshup.io/docs/what-is-an-inbound-message
-
-;
-
-```js
-    azureOpenAIApiKey: process.env.AZURE_OPENAI_API_KEY,
-    azureOpenAIApiInstanceName: process.env.AZURE_OPENAI_API_INSTANCE_NAME,
-    azureOpenAIApiDeploymentName: process.env.AZURE_OPENAI_API_DEPLOYMENT_NAME,
-    azureOpenAIApiVersion: process.env.AZURE_OPENAI_API_VERSION,
+🟢 (STARTED) Payment Confirmation & Tracking: Sends real-time payment updates and transaction IDs.
 
 
-import gupshup from '@api/gupshup';
+🟣 (NOT STARTED: Needs more details) Receipt Upload & Matching: Users can submit receipts via WhatsApp, and the AI agent matches them with the corresponding transactions.
 
-gupshup.postWaApiV1Msg({message: '{"text":"Welcome to Gupshup","type":"text","previewUrl":false}'})
-  .then(({ data }) => console.log(data))
-  .catch(err => console.error(err))
+🟣 (NOT STARTED) File Upload Support: Accepts images, CSV, or Excel files for bulk payments
+
 ```
