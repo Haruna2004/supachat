@@ -6,7 +6,7 @@
 
 🏆 (COMPLETED) Error Handling & Validation: Ensures all payment details are correct before processing.
 
-🟢 (STARTED) Automated Data Collection: The AI agent prompts users for missing details like account numbers and bank names.
+🏆 (STARTED) Automated Data Collection: The AI agent prompts users for missing details like account numbers and bank names.
 
 🟢 (STARTED) Payment Confirmation & Tracking: Sends real-time payment updates and transaction IDs.
 
