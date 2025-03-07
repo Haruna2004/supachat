@@ -2,10 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { streamText } from 'ai';
 import { ClientMessage } from './webchat.types';
 import { Response } from 'express';
-import { toolDefs } from './ai/aitools';
 import { PAY_SYSTEM_PROMPT } from './ai/prompt';
 
 import { createOpenAI } from '@ai-sdk/openai';
+import { createTools } from './ai/aitools';
 
 const groq = createOpenAI({
   baseURL: 'https://api.groq.com/openai/v1',
@@ -24,7 +24,10 @@ export class WebchatService {
       model: groq.chat('llama-3.3-70b-versatile'),
       messages: clientMessage.messages,
       system: PAY_SYSTEM_PROMPT,
-      tools: toolDefs,
+      tools: createTools(
+        clientMessage.brassToken,
+        clientMessage.brassAccountId,
+      ),
       maxSteps: 10,
       onFinish(event) {
         console.log('Assistant: ', event.text);

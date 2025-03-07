@@ -5,8 +5,9 @@
 /.api
 
 # CUSTOM
-/test-scripts
-/test-agent
+
+labs
+
 
 # Logs
 logs
