@@ -45,9 +45,8 @@ Steps:
 3. Followed by a list of suggestions, each suggestion should be split by two newlines.
 
 ```
+
 1.⁠ ⁠More reliable bulk payment
 2.⁠ ⁠Expand Agent Tools (generate / verify reciepts, list transactions, etc)
-3.⁠ ⁠Conversation history 
+3.⁠ ⁠Conversation history
 4.⁠ ⁠Multimodal Input (Voice notes and Images)
-
-
