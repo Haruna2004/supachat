@@ -3,15 +3,15 @@ import { streamText } from 'ai';
 import { ClientMessage } from './webchat.types';
 import { Response } from 'express';
 import { PAY_SYSTEM_PROMPT } from './ai/prompt';
-
-import { createOpenAI } from '@ai-sdk/openai';
+import { azure } from '@ai-sdk/azure';
+// import { createOpenAI } from '@ai-sdk/openai';
 import { createTools } from './ai/aitools';
 
-const groq = createOpenAI({
-  baseURL: 'https://api.groq.com/openai/v1',
-  apiKey: process.env.GROQ_API_KEY,
-  compatibility: 'strict',
-});
+// const groq = createOpenAI({
+//   baseURL: 'https://api.groq.com/openai/v1',
+//   apiKey: process.env.GROQ_API_KEY,
+//   compatibility: 'strict',
+// });
 
 @Injectable()
 export class WebchatService {
@@ -21,7 +21,8 @@ export class WebchatService {
     console.log('User: ', lastMessage.content);
 
     const result = streamText({
-      model: groq.chat('llama-3.3-70b-versatile'),
+      // model: groq.chat('llama-3.3-70b-versatile'),
+      model: azure.chat('gpt-4o'),
       messages: clientMessage.messages,
       system: PAY_SYSTEM_PROMPT,
       tools: createTools(

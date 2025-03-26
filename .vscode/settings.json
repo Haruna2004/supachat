@@ -16,8 +16,8 @@
     "eslint.config.mjs": true,
     ".env.example": true,
     "package.json": true,
-    ".env": true,
-    "labs": true
+    // ".env": true,
+    // "labs": true
     // Agent
     // "src": true,
     // "prisma": true,
