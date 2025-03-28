@@ -22,7 +22,6 @@
   "dependencies": {
     "@ai-sdk/azure": "^1.1.15",
     "@ai-sdk/openai": "^1.1.14",
-    "@api/gupshup": "file:.api/apis/gupshup",
     "@azure/openai": "^2.0.0",
     "@langchain/core": "^0.3.38",
     "@langchain/openai": "^0.4.2",
