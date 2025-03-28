@@ -1,6 +1,6 @@
 import { tool } from 'ai';
 import { z } from 'zod';
-import { BrassService } from '../wcbrass.service';
+import { BrassService } from '../brass.service';
 import { BrassPayable } from '../webchat.types';
 import { randomUUID } from 'crypto';
 
