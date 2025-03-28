@@ -1,40 +1,43 @@
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import axios, { AxiosInstance } from 'axios';
-import { BANK_CODES } from '../utils/bankCodes';
+import { BANK_CODES } from '../chat/utils/bankCodes';
 import {
   ConfirmAccountError,
   ConfirmAccountResponse,
-  PaymentDetails,
-} from '../utils/types';
+} from '../chat/utils/types';
+import { BrassPayable } from './webchat.types';
 const baseURL = 'https://api.getbrass.co';
 const PATH = {
   resolveName: '/banking/banks/account-name',
-  createPayment: '/banking/payments',
+  createPayment: '/banking/payments/create',
 };
 
 @Injectable()
 export class BrassService {
   private readonly api: AxiosInstance;
-
-  constructor(private readonly configService: ConfigService) {
-    const apiKey = this.configService.get<string>('BRASS_CONCIERGE_PAT');
+  constructor() {
     this.api = axios.create({
       baseURL,
       timeout: 10000,
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${apiKey}`,
-      },
     });
   }
 
-  async confirmAccount(bankCode: string, accountNumber: number) {
+  async confirmAccount(
+    bankCode: string,
+    accountNumber: number,
+    brassToken?: string,
+  ) {
     try {
+      const options = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${brassToken}`,
+        },
+      };
       const response = await this.api.get<ConfirmAccountResponse>(
         `${PATH.resolveName}?bank=${bankCode}&account_number=${accountNumber}`,
+        options,
       );
-
       return {
         success: true,
         data: response.data.data,
@@ -53,7 +56,6 @@ export class BrassService {
           };
         }
       }
-
       // Handle unknown errors
       return {
         success: false,
@@ -65,34 +67,36 @@ export class BrassService {
     }
   }
 
-  async createPayment(payable: PaymentDetails) {
+  async createPayment(payable: BrassPayable, brassToken?: string) {
     try {
-      if (!payable.amount) {
-        throw new Error('Amount is required');
-      }
-
-      const paymentData = {
-        status: 'pending',
-        title: `Concierge - ${payable.title}`,
-        amount: payable.amount * 100,
-        to: {
-          name: payable.recipient,
-          account_number: payable.accountNumber,
-          bank: payable.bankID,
-        },
-      };
-
-      console.log('Payment Data to Brass: ', paymentData);
-
+      // make api request to payment endpoint
       const response = await this.api.post<{ data: object }>(
         `${PATH.createPayment}`,
-        paymentData,
+        payable,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${brassToken}`,
+          },
+        },
       );
-      console.log('Payment Success: ', JSON.stringify(response.data));
-      return { success: true };
+
+      const result = response.data.data;
+
+      if (!result) {
+        return { success: false, message: 'Error from request' };
+      }
+
+      console.log('Payment Success');
+
+      return { success: true, data: {} };
     } catch (error) {
-      console.error('Payment Failed');
-      return { success: false };
+      console.log('Payment Failed');
+      if (axios.isAxiosError<object>(error)) {
+        console.log('Error Data', error.response?.data);
+      }
+
+      return { success: false, message: 'Error from request' };
     }
   }
 

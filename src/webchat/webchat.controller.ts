@@ -11,4 +11,9 @@ export class WebchatController {
   process(@Res() res: Response, @Body() messages: ClientMessage) {
     return this.webchatService.process(messages, res);
   }
+
+  @Post('bulk')
+  bulkProcess(@Body() { message }: { message: string }) {
+    return this.webchatService.processBulk(message);
+  }
 }
