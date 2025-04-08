@@ -32,8 +32,8 @@ export class WebchatService {
     );
   }
 
-  processBulk(bulkPayBody: BulkClientMessage) {
+  async processBulk(bulkPayBody: BulkClientMessage) {
     console.log(bulkPayBody.message);
-    return this.bulkService.handleBulk(bulkPayBody);
+    return await this.bulkService.handleBulk(bulkPayBody);
   }
 }

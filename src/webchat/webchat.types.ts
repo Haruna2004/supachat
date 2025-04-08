@@ -28,3 +28,15 @@ export const BrassPayableSchema = z.object({
 
 export type BrassPayable = z.infer<typeof BrassPayableSchema>;
 
+export interface ConfirmedType {
+  success: boolean;
+  paymentDetails: {
+    accountNumber: number;
+    bankID: string;
+    resolvedName: string;
+    resolvedBankName: string;
+    amount: number;
+  };
+  error: string | undefined;
+}
+

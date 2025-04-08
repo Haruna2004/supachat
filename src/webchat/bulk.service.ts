@@ -3,21 +3,9 @@ import { AiService } from './ai/ai.service';
 import { z } from 'zod';
 import { bulkDetailsSchema } from './ai/aitools';
 import { BrassService } from './brass.service';
-import { BulkClientMessage } from './webchat.types';
-import { paymentDetails } from 'labs/test-scripts/utils/aihelpers';
+import { BulkClientMessage, ConfirmedType } from './webchat.types';
+// import { paymentDetails } from 'labs/test-scripts/utils/aihelpers';
 import { BANK_LIST } from './lib/bankList';
-
-interface ConfirmedType {
-  success: boolean;
-  paymentDetails: {
-    accountNumber: number;
-    bankID: string;
-    resolvedName: string;
-    resolvedBankName: string;
-    amount: number;
-  };
-  error: string | undefined;
-}
 
 @Injectable()
 export class BulkService {
@@ -49,7 +37,7 @@ export class BulkService {
     this.brassToken = brassToken;
     const detectedPayments = await this.detectPayments(message);
     const confirmedPayments = await this.confirmPayments(detectedPayments);
-    return Response.json({confirmedPayments})
+    return { confirmedPayments };
   }
 
   /* CORE METHODS */
@@ -63,7 +51,6 @@ export class BulkService {
   async confirmPayments(detected: z.infer<typeof bulkDetailsSchema>[]) {
     const result = await Promise.all(
       detected.map(async (payment) => {
-
         if (!payment.amount)
           return this.createPaymentError(payment, 'Could not determine amount');
 
@@ -94,7 +81,7 @@ export class BulkService {
         };
       }),
     );
-    console.log('Confirmed Payments: \n',result)
+    console.log('Confirmed Payments: \n', result);
     return result;
   }
 
