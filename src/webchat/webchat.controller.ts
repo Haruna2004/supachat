@@ -1,6 +1,6 @@
 import { Body, Controller, Post, Res } from '@nestjs/common';
 import { WebchatService } from './webchat.service';
-import { ClientMessage } from './webchat.types';
+import { BulkClientMessage, ClientMessage } from './webchat.types';
 import { Response } from 'express';
 
 @Controller('webchat')
@@ -13,7 +13,7 @@ export class WebchatController {
   }
 
   @Post('bulk')
-  bulkProcess(@Body() { message }: { message: string }) {
-    return this.webchatService.processBulk(message);
+  bulkProcess(@Body() bulkPayBody: BulkClientMessage) {
+    return this.webchatService.processBulk(bulkPayBody);
   }
 }

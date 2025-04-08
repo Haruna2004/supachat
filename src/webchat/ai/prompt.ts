@@ -13,3 +13,9 @@ In terms of bank name ensure that it could match with a valid Nigerian bank or a
 
 Note on bulk processing (when given more than one account): Does not matter if it's 10 or 20 accounts, process them one at a time from responsibilities 1. to 6 , i.e take the first detected detail confirm it and ask for approval from the user, process it, tell the user the result of the transaction then go to be next. Do not call a tool twice at once. 
 `;
+
+
+
+export const BULK_EXTRACT_SYSTEM_PROMPT = `You are a payment details extractor`
+
+export const VALID_BANK_SYSTEM_PROMPT = 'Your purpose is transforming an unchecked user inputed bank which could be appreviated, mispelled or incompletely typed into the closest valid bank name from a list of valid bank names available.'

@@ -139,3 +139,41 @@ export function createTools(brassToken?: string, brassAccountId?: string) {
     }),
   };
 }
+
+/* BULK SCHEMA */
+
+export const bulkDetailsSchema = z.object({
+    accountNumber: z
+      .number()
+      .int()
+      .min(1000000000)
+      .max(9999999999)
+      .describe('The 10-digit account number to be verified'),
+
+    detectedBank: z
+      .string()
+      .describe('A bank name detected from the user input message. Return an empty string if no bank name is detected'),
+
+    amount: z
+      .number()
+      .positive()
+      .nullable()
+      .describe(
+        'The payment amount in the local currency, extracted from user input. This can be null if you cannot determine the amount',
+      ),
+})
+
+export const validBankNameSchema =  z.object({
+  validBankName: z
+    .string()
+    .describe(
+      'The closest valid bank name, return an empty string  if you could not determine a valid bank name',
+    ),
+  error: z
+    .string()
+    .nullable()
+    .describe(
+      'Error message for the user you could not determine the bank name',
+    ),
+})
+

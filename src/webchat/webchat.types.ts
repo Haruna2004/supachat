@@ -8,6 +8,12 @@ export interface ClientMessage {
   brassAccountId?: string;
 }
 
+export interface BulkClientMessage {
+  message: string,
+  brassToken: string,
+  brassAccountId: string
+}
+
 export const BrassPayableSchema = z.object({
   customer_reference: z.string(),
   amount: z.number(),
@@ -21,3 +27,4 @@ export const BrassPayableSchema = z.object({
 });
 
 export type BrassPayable = z.infer<typeof BrassPayableSchema>;
+

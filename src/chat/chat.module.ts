@@ -8,7 +8,7 @@ import { PaymentService } from './core/payment.service';
 import { VerifyService } from './core/verify.service';
 import { BulkService } from './core/bulk.service';
 import { BrassService } from './libs/brass.service';
-import { DatabaseService } from './libs/db.service';
+// import { DatabaseService } from './libs/db.service';
 
 @Module({
   imports: [HelperModule, ConfigModule.forRoot()],
@@ -20,7 +20,7 @@ import { DatabaseService } from './libs/db.service';
     VerifyService,
     BulkService,
     BrassService,
-    DatabaseService,
+    // DatabaseService,
   ],
   exports: [ChatService],
 })
