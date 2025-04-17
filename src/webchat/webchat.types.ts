@@ -9,9 +9,9 @@ export interface ClientMessage {
 }
 
 export interface BulkClientMessage {
-  message: string,
-  brassToken: string,
-  brassAccountId: string
+  message: string;
+  brassToken: string;
+  brassAccountId: string;
 }
 
 export const BrassPayableSchema = z.object({
@@ -31,6 +31,7 @@ export type BrassPayable = z.infer<typeof BrassPayableSchema>;
 export interface ConfirmedType {
   success: boolean;
   paymentDetails: {
+    payID: string;
     accountNumber: number;
     bankID: string;
     resolvedName: string;
@@ -39,4 +40,3 @@ export interface ConfirmedType {
   };
   error: string | undefined;
 }
-
