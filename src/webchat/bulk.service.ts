@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { AiService } from './ai/ai.service';
 import { z } from 'zod';
+import { v4 as uuidv4 } from 'uuid';
 import { bulkDetailsSchema } from './ai/aitools';
 import { BrassService } from './brass.service';
 import { BulkClientMessage, ConfirmedType } from './webchat.types';
@@ -21,6 +22,7 @@ export class BulkService {
     return {
       success: false,
       paymentDetails: {
+        payID: uuidv4(),
         accountNumber: payment.accountNumber,
         bankID: '',
         resolvedName: '',
@@ -31,16 +33,12 @@ export class BulkService {
     };
   }
 
-  /* MAIN METHOD */
-
   async handleBulk({ message, brassToken }: BulkClientMessage) {
     this.brassToken = brassToken;
     const detectedPayments = await this.detectPayments(message);
     const confirmedPayments = await this.confirmPayments(detectedPayments);
     return { confirmedPayments };
   }
-
-  /* CORE METHODS */
 
   async detectPayments(message: string) {
     const accounts = await this.aiService.extractDetails(message);
@@ -72,6 +70,7 @@ export class BulkService {
         return {
           success: true,
           paymentDetails: {
+            payID: uuidv4(),
             accountNumber: accountResult.accountNumber,
             bankID: accountResult.bankID,
             resolvedName: accountResult.resolvedName,
@@ -84,8 +83,6 @@ export class BulkService {
     console.log('Confirmed Payments: \n', result);
     return result;
   }
-
-  /* HELPER METHODS */
 
   async getBankCode(bankName: string) {
     const { error, validBankName } =
