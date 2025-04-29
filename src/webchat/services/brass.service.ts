@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import axios, { AxiosInstance } from 'axios';
-import { BANK_CODES } from '../chat/utils/bankCodes';
+import { BANK_CODES } from '../../chat/utils/bankCodes';
 import {
   ConfirmAccountError,
   ConfirmAccountResponse,
-} from '../chat/utils/types';
-import { BrassPayable } from './webchat.types';
+} from '../../chat/utils/types';
+import { BrassPayable } from '../webchat.types';
 const baseURL = 'https://api.getbrass.co';
 const PATH = {
   resolveName: '/banking/banks/account-name',

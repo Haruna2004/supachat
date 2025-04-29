@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { AiService } from './ai/ai.service';
+import { AiService } from './ai.service';
 import { z } from 'zod';
 import { v4 as uuidv4 } from 'uuid';
-import { bulkDetailsSchema } from './ai/aitools';
+import { bulkDetailsSchema } from '../lib/aitools';
 import { BrassService } from './brass.service';
-import { BulkClientMessage, ConfirmedType } from './webchat.types';
+import { BulkClientMessage, ConfirmedType } from '../webchat.types';
 // import { paymentDetails } from 'labs/test-scripts/utils/aihelpers';
-import { BANK_LIST } from './lib/bankList';
+import { BANK_LIST } from '../lib/bankList';
 
 @Injectable()
 export class BulkService {

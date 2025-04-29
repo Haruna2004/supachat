@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { WebchatService } from './webchat.service';
 import { WebchatController } from './webchat.controller';
-import { AiService } from './ai/ai.service';
-import { BulkService } from './bulk.service';
-import { BrassService } from './brass.service';
+import { WebchatService } from './services/webchat.service';
+import { AiService } from './services/ai.service';
+import { BulkService } from './services/bulk.service';
+import { BrassService } from './services/brass.service';
 
 @Module({
   controllers: [WebchatController],

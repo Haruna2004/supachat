@@ -1,6 +1,6 @@
 import { tool } from 'ai';
 import { z } from 'zod';
-import { BrassService } from '../brass.service';
+import { BrassService } from '../services/brass.service';
 import { BrassPayable } from '../webchat.types';
 import { randomUUID } from 'crypto';
 
@@ -143,27 +143,29 @@ export function createTools(brassToken?: string, brassAccountId?: string) {
 /* BULK SCHEMA */
 
 export const bulkDetailsSchema = z.object({
-    accountNumber: z
-      .number()
-      .int()
-      .min(1000000000)
-      .max(9999999999)
-      .describe('The 10-digit account number to be verified'),
+  accountNumber: z
+    .number()
+    .int()
+    .min(1000000000)
+    .max(9999999999)
+    .describe('The 10-digit account number to be verified'),
 
-    detectedBank: z
-      .string()
-      .describe('A bank name detected from the user input message. Return an empty string if no bank name is detected'),
+  detectedBank: z
+    .string()
+    .describe(
+      'A bank name detected from the user input message. Return an empty string if no bank name is detected',
+    ),
 
-    amount: z
-      .number()
-      .positive()
-      .nullable()
-      .describe(
-        'The payment amount in the local currency, extracted from user input. This can be null if you cannot determine the amount',
-      ),
-})
+  amount: z
+    .number()
+    .positive()
+    .nullable()
+    .describe(
+      'The payment amount in the local currency, extracted from user input. This can be null if you cannot determine the amount',
+    ),
+});
 
-export const validBankNameSchema =  z.object({
+export const validBankNameSchema = z.object({
   validBankName: z
     .string()
     .describe(
@@ -175,5 +177,4 @@ export const validBankNameSchema =  z.object({
     .describe(
       'Error message for the user you could not determine the bank name',
     ),
-})
-
+});

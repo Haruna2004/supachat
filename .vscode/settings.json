@@ -16,21 +16,23 @@
     "eslint.config.mjs": true,
     ".env.example": true,
     "package.json": true,
-    // ".env": true,
-    "labs": true
+    ".env": true,
+    "labs": true,
     // Agent
     // "src": true,
     // "prisma": true,
     // "notes.md": true,
     // "**/test-scripts": true
     // Chat
-    // "**/whatsapp": true,
-    // "**/app.controller.ts": true,
-    // "**/app.service.ts": true,
-    // "**/app.module.ts": true,
-    // "**/helper": true,
-    // "**/main.ts": true,
-    // "notes.md": true,
-    // "test-scripts": true
+    "**/whatsapp": true,
+    "**/app.controller.ts": true,
+    "**/app.service.ts": true,
+    "**/app.module.ts": true,
+    "**/helper": true,
+    "**/main.ts": true,
+    "notes.md": true,
+    "test-scripts": true,
+    "**/chat": true,
+    "**/auth": true
   }
 }

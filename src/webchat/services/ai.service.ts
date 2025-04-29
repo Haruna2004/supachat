@@ -3,8 +3,11 @@ import { Response } from 'express';
 import { CoreMessage, generateObject } from 'ai';
 import { azure } from '@ai-sdk/azure';
 import { streamText } from 'ai';
-import { BULK_EXTRACT_SYSTEM_PROMPT, VALID_BANK_SYSTEM_PROMPT } from './prompt';
-import { bulkDetailsSchema, validBankNameSchema } from './aitools';
+import {
+  BULK_EXTRACT_SYSTEM_PROMPT,
+  VALID_BANK_SYSTEM_PROMPT,
+} from '../lib/prompt';
+import { bulkDetailsSchema, validBankNameSchema } from '../lib/aitools';
 import { BANK_LIST, BANK_NAMES } from '../lib/bankList';
 
 @Injectable()

@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { BulkClientMessage, ClientMessage } from './webchat.types';
+import { BulkClientMessage, ClientMessage } from '../webchat.types';
 import { Response } from 'express';
-import { PAY_SYSTEM_PROMPT } from './ai/prompt';
-import { createTools } from './ai/aitools';
-import { AiService } from './ai/ai.service';
+import { PAY_SYSTEM_PROMPT } from '../lib/prompt';
+import { createTools } from '../lib/aitools';
+import { AiService } from './ai.service';
 import { BulkService } from './bulk.service';
 
 @Injectable()
