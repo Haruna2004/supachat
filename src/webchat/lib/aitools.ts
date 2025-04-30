@@ -17,10 +17,7 @@ const comAcctSchema = z.object({
       'The numerical code identifying the bank, obtained after resolving the account name',
     ),
   accountNumber: z
-    .number()
-    .int()
-    .min(1000000000)
-    .max(9999999999)
+    .string()
     .describe('The 10-digit account number to be verified'),
 });
 
@@ -42,10 +39,11 @@ const paySchema = z.object({
       'The verified recipient name obtained after account confirmation',
     ),
   accountNumber: z
-    .number()
-    .int()
-    .min(1000000000)
-    .max(9999999999)
+    .string()
+    .length(10, { message: 'Account number must be exactly 10 digits long.' })
+    .regex(/^\d{10}$/, {
+      message: 'Account number must contain only digits (0-9).',
+    })
     .describe('The 10-digit verified account number'),
   bankId: z
     .string()
@@ -66,11 +64,13 @@ export function createTools(brassToken?: string, brassAccountId?: string) {
       accountNumber,
       brassToken,
     );
-    if (!result.success)
+    if (!result.success) {
+      console.log('Confirmation Error', result.error);
       return {
         message: 'There was an error verifying bank details',
         details: result.error,
       };
+    }
     console.log(result);
     return result.data;
   }
@@ -96,7 +96,7 @@ export function createTools(brassToken?: string, brassAccountId?: string) {
       title: `Concierge-${args.title}`,
       source_account: brassAccountId ?? '',
       to: {
-        account_number: args.accountNumber.toString(),
+        account_number: args.accountNumber,
         bank: args.bankId,
         name: args.name,
       },
@@ -150,10 +150,7 @@ export function createTools(brassToken?: string, brassAccountId?: string) {
 
 export const bulkDetailsSchema = z.object({
   accountNumber: z
-    .number()
-    .int()
-    .min(1000000000)
-    .max(9999999999)
+    .string()
     .describe('The 10-digit account number to be verified'),
 
   detectedBank: z

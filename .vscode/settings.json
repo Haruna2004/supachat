@@ -29,7 +29,7 @@
     "**/app.service.ts": true,
     "**/app.module.ts": true,
     "**/helper": true,
-    "**/main.ts": true,
+    // "**/main.ts": true,
     // "notes.md": true,
     "test-scripts": true,
     "**/chat": true,

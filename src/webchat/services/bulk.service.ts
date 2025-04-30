@@ -93,7 +93,7 @@ export class BulkService {
     return { code, name: validBankName, error };
   }
 
-  async resolveAccountDetails(bankCode: string, accountNumber: number) {
+  async resolveAccountDetails(bankCode: string, accountNumber: string) {
     const result = await this.brassService.confirmAccount(
       bankCode,
       accountNumber,

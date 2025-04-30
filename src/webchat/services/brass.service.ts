@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ConsoleLogger, Injectable } from '@nestjs/common';
 import axios, { AxiosInstance } from 'axios';
 import { BANK_CODES } from '../../chat/utils/bankCodes';
 import {
@@ -24,7 +24,7 @@ export class BrassService {
 
   async confirmAccount(
     bankCode: string,
-    accountNumber: number,
+    accountNumber: string,
     brassToken?: string,
   ) {
     try {
@@ -43,6 +43,7 @@ export class BrassService {
         data: response.data.data,
       };
     } catch (error) {
+      // console.log('Confirmation Error', error);
       if (axios.isAxiosError<ConfirmAccountError>(error)) {
         const errorData = error.response?.data;
 

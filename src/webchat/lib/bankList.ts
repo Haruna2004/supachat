@@ -5,7 +5,7 @@ export const BANK_LIST: Record<string, string> = {
   'Fidelity Bank': '070',
   'First Bank of Nigeria': '011',
   'First City Monument Bank': '214',
-  'Guaranty Trust Bank': '117',
+  'Guaranty Trust Bank': '058',
   'Globus Bank': '103',
   'Heritage Bank': '030',
   'Keystone Bank': '082',

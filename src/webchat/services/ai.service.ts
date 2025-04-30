@@ -8,7 +8,7 @@ import {
   VALID_BANK_SYSTEM_PROMPT,
 } from '../lib/prompt';
 import { bulkDetailsSchema, validBankNameSchema } from '../lib/aitools';
-import { BANK_LIST, BANK_NAMES } from '../lib/bankList';
+import { BANK_NAMES } from '../lib/bankList';
 
 @Injectable()
 export class AiService {
@@ -26,6 +26,9 @@ export class AiService {
       ...params,
       onFinish(event) {
         console.log('Assistant: ', event.text);
+      },
+      onError(event) {
+        console.log('AI Error', event.error);
       },
     });
     return result.pipeDataStreamToResponse(res);

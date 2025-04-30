@@ -32,7 +32,7 @@ export interface ConfirmedType {
   success: boolean;
   paymentDetails: {
     payID: string;
-    accountNumber: number;
+    accountNumber: string;
     bankID: string;
     resolvedName: string;
     resolvedBankName: string;
