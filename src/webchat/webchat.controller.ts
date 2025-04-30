@@ -1,5 +1,5 @@
 import { Body, Controller, Post, Res } from '@nestjs/common';
-import { WebchatService } from './webchat.service';
+import { WebchatService } from './services/webchat.service';
 import { BulkClientMessage, ClientMessage } from './webchat.types';
 import { Response } from 'express';
 

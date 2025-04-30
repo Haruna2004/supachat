@@ -30,7 +30,7 @@
     "**/app.module.ts": true,
     "**/helper": true,
     "**/main.ts": true,
-    "notes.md": true,
+    // "notes.md": true,
     "test-scripts": true,
     "**/chat": true,
     "**/auth": true

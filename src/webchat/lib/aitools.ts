@@ -3,8 +3,11 @@ import { z } from 'zod';
 import { BrassService } from '../services/brass.service';
 import { BrassPayable } from '../webchat.types';
 import { randomUUID } from 'crypto';
+import { BANK_LIST } from './bankList';
+import { AiService } from '../services/ai.service';
 
 const brassService = new BrassService();
+const aiService = new AiService();
 
 /* SCHEMAS */
 const comAcctSchema = z.object({
@@ -73,12 +76,15 @@ export function createTools(brassToken?: string, brassAccountId?: string) {
   }
 
   async function getBankCode({ detectedBank }: { detectedBank: string }) {
-    const bankCode = brassService.getBankCode(detectedBank);
+    const { error, validBankName } =
+      await aiService.getValidBankName(detectedBank);
+    if (error) return { error, code: '' };
+    const bankCode = BANK_LIST[validBankName];
     console.log('Resolved Bank Code: ', bankCode, ' from ', detectedBank);
 
     if (!bankCode)
       return Promise.resolve(
-        'Bank code for the bank name could not be determined, suggest some up to 5 potential nigerian bank they might be refering to',
+        'Bank code for the bank name could not be determined, suggest some up to 3 potential nigerian bank they might be refering to',
       );
     return Promise.resolve(bankCode);
   }
