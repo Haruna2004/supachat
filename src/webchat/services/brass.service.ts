@@ -1,4 +1,4 @@
-import { ConsoleLogger, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import axios, { AxiosInstance } from 'axios';
 import { BANK_CODES } from '../../chat/utils/bankCodes';
 import {

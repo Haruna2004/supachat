@@ -74,7 +74,7 @@ export const BANK_NAMES = [
   'Sterling Bank',
   'SunTrust Bank',
   'Taj Bank Limited',
-  'Titan Trust Bank',
+  // 'Titan Trust Bank',
   'Union Bank',
   'United Bank for Africa',
   'Unity Bank',
